@@ -1,0 +1,24 @@
+name: .NET Core Audit
+
+
+on: [push, pull_request]
+
+
+jobs:
+
+
+  dotnet-audit:
+    runs-on: windows-latest
+    steps:
+    - name: Checkout librairies
+      uses: actions/checkout@v2
+
+    - name: Setup .NET Core
+      uses: actions/setup-dotnet@v2
+      with:
+        dotnet-version: '8.0'
+
+    - name: Restore dependencies and run audit App
+      run: |
+        dotnet restore
+        dotnet list package --vulnerable
